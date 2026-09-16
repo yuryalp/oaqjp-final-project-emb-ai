@@ -11,7 +11,7 @@ def emotion_detector(text_to_analyze):
     for emotion_dic in response_json["emotionPredictions"]:
         emotions = emotion_dic["emotion"]
         dominant_emotion = ""
-        dominant_emotion_score = emotions[next(iter(emotions))]
+        dominant_emotion_score = 0
         for emotion_name, emotion_score in emotions.items():
             if(emotion_score > dominant_emotion_score):
                 dominant_emotion = emotion_name
