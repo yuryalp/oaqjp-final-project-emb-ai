@@ -10,6 +10,12 @@ def emotion_detector(text_to_analyze):
     emotions = {}
     for emotion_dic in response_json["emotionPredictions"]:
         emotions = emotion_dic["emotion"]
+        if (response.status_code == 200):
+            em_keys = emotions.keys()
+            for key in em_keys:
+                emotions[key] = None
+            return emotions
+
         dominant_emotion = ""
         dominant_emotion_score = 0
         for emotion_name, emotion_score in emotions.items():
