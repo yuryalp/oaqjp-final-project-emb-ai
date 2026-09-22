@@ -6,7 +6,13 @@ def emotion_detector(text_to_analyze):
     header = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
     myobj = { "raw_document": { "text": text_to_analyze } }
     response = requests.post(url, json = myobj, headers=header)
-    emotions_res = {'anger' : 0, 'disgust' : 0, 'fear' : 0, 'joy' : 0, 'sadness' : 0, 'dominant_emotion' : None}
+    ANGER = 'anger'
+    DISGUST = 'disgust'
+    FEAR = 'fear'
+    JOY = 'joy'
+    SADNESS = 'sadness'
+    DOMINANT_EMOTION = 'dominant_emotion'
+    emotions_res = {ANGER : 0, DISGUST : 0, FEAR : 0, JOY : 0, SADNESS : None, DOMINANT_EMOTION : None}
     if (response.status_code == 400):
         em_keys = emotions_res.keys()
         for key in em_keys:
@@ -17,19 +23,19 @@ def emotion_detector(text_to_analyze):
         emotions = emotion_dic["emotion"]
         dominant_emotion_score = 0
         for emotion_name, emotion_score in emotions.items():
-            if (emotion_name == 'anger'):
-                emotions_res['anger'] = emotion_score
-            elif (emotion_name == 'disgust'):
-                emotions_res['disgust'] = emotion_score
-            elif (emotion_name == 'fear'):
-                emotions_res['fear'] = emotion_score
-            elif (emotion_name == 'joy'):
-                emotions_res['joy'] = emotion_score
-            elif (emotion_name == 'sadness'):
-                emotions_res['sadness'] = emotion_score
+            if (emotion_name == ANGER):
+                emotions_res[ANGER] = emotion_score
+            elif (emotion_name == DISGUST):
+                emotions_res[DISGUST] = emotion_score
+            elif (emotion_name == FEAR):
+                emotions_res[FEAR] = emotion_score
+            elif (emotion_name == JOY):
+                emotions_res[JOY] = emotion_score
+            elif (emotion_name == SADNESS):
+                emotions_res[SADNESS] = emotion_score
             
             if (emotion_score > dominant_emotion_score):
-                emotions_res["dominant_emotion"] = emotion_name
+                emotions_res[DOMINANT_EMOTION] = emotion_name
                 dominant_emotion_score = emotion_score
         
         break
